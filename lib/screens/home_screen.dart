@@ -8,6 +8,10 @@ import '../providers/setting_provider.dart';
 
 //components
 // import '../components/UI/app_bar.dart';
+import '../components/UI/loading_animation.dart';
+
+//utils
+import '../utils/notification_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -56,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
+    print("disposed!!");
     timer?.cancel();
     subscription?.cancel();
     super.dispose();
@@ -63,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<SettingsProvider>(context).loadAllSettings;
+    final settings = Provider.of<SettingsProvider>(context).settings;
     // final PreferredSizeWidget appBar = CustomAppBar.adaptiveAppBar(
     //   "Add new place",
     //   [],
@@ -105,6 +110,15 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         case BatteryState.charging:
           const color = Colors.green;
+
+          if (batteryLevel >= (batteryConfig["limitMax"] as int) &&
+              (batteryConfig["enableAlarm"] as bool)) {
+            NotificationService.showNotification(
+              title: "Battery Reach the limit!",
+              body: "Unplug your phone!",
+            );
+          }
+
           return Column(
             children: const [
               Icon(
@@ -121,6 +135,15 @@ class _HomeScreenState extends State<HomeScreen> {
         default:
           const color = Colors.orangeAccent;
           const alertColor = Colors.red;
+
+          if (batteryLevel <= (batteryConfig["limitMin"] as int) &&
+              (batteryConfig["enableAlarm"] as bool)) {
+            NotificationService.showNotification(
+              title: "Low Power",
+              body: "Plug your phone",
+            );
+          }
+
           return Column(
             children: [
               Icon(

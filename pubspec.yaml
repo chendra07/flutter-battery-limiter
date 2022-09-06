@@ -39,6 +39,11 @@ dependencies:
   sqflite: ^2.0.3+1 #comment this if u dont need local db
   battery_plus: ^2.1.4+1
   flutter_local_notifications: ^9.9.0
+  flutter_background: ^1.1.0
+  timezone: ^0.8.0
+  awesome_notifications: any
+  shared_preferences: ^2.0.15
+  hive: ^2.2.3
   # http: ^0.13.5 #comment this if u dont need http request
   # image_picker: ^0.8.5+3 # pick image function
   # path_provider: ^2.0.11 #get application storage path

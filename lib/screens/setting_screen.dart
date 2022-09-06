@@ -36,7 +36,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<SettingsProvider>(context);
+    final settings = Provider.of<SettingsProvider>(context, listen: false);
     const defaultStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
     return Scaffold(
       // appBar: appBar,
